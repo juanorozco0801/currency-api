@@ -4,7 +4,7 @@ pipeline {
   environment {
     DOCKER_IMAGE = 'apimonedas_image_from_pipeline'
     CONTAINER_NAME = 'apimonedas_container_from_pipeline'
-    DOCKER_NETWORK = 'apimonedas_network_from_pipeline'
+    DOCKER_NETWORK = 'docker_compose_monedas_red'
     // DOCKER_BUILD_DIR = 'presentacion'
     HOST_PORT = 9080
     CONTAINER_PORT = 8080 
