@@ -3,32 +3,34 @@ kind: StatefulSet
 metadata:
   name: dbmonedas-sfs-tt
 spec:
-  serviceName: "dbmonedas-servicio"
+  serviceName: "dbmonedas-servicio-tt"
   replicas: 1
   selector:
     matchLabels:
-      app: dbmonedas 
+      app: dbmonedas-tt
   template:
     metadata:
       labels:
-        app: dbmonedas
+        app: dbmonedas-tt
     spec:
       containers:
-        - name: dbmonedas
+        - name: dbmonedas # <-- Aquí empieza la definición del único contenedor
           image: postgres:16
           ports:
-          - containerPort: 5432
-        - env:
-          - name: POSTGRES_DB
-            value: monedas
-          - name: POSTGRES_USER
-            value: postgres
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: dbmonedas-secretos-tt
-                key: DBMONEDAS_PASSWORD
-          volumeMounts:
+            - containerPort: 5433
+          env: # <-- Esta sección debe estar indentada al mismo nivel que 'ports', 'image', 'name'
+            - name: PGPORT
+              value: "5433"
+            - name: POSTGRES_DB
+              value: monedas
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dbmonedas-secretos-tt
+                  key: DBMONEDAS_PASSWORD
+          volumeMounts: # <-- Esta sección también debe estar indentada al mismo nivel
             - name: storage-dbmonedas
               mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
