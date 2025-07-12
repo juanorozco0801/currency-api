@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dbmonedas-servicio-tt
+  name: bdmonedas-servicio-tt
 spec:
   selector: 
-    app: dbmonedas-tt
+    app: bdmonedas-tt
   ports:
     - port: 5432
       targetPort: 5433

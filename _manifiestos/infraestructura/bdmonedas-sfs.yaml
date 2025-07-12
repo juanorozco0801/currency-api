@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: dbmonedas-sfs-tt
+  name: bdmonedas-sfs-tt
 spec:
-  serviceName: "dbmonedas-servicio-tt"
+  serviceName: "bdmonedas-servicio-tt"
   replicas: 1
   selector:
     matchLabels:
-      app: dbmonedas-tt
+      app: bdmonedas-tt
   template:
     metadata:
       labels:
-        app: dbmonedas-tt
+        app: bdmonedas-tt
     spec:
       containers:
-        - name: dbmonedas # <-- Aquí empieza la definición del único contenedor
+        - name: bdmonedas # <-- Aquí empieza la definición del único contenedor
           image: postgres:16
           ports:
             - containerPort: 5433
@@ -28,14 +28,14 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: dbmonedas-secretos-tt
-                  key: DBMONEDAS_PASSWORD
+                  name: bdmonedas-secretos-tt
+                  key: BDMONEDAS_PASSWORD
           volumeMounts: # <-- Esta sección también debe estar indentada al mismo nivel
-            - name: storage-dbmonedas
+            - name: storage-bdmonedas
               mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
     - metadata:
-        name: storage-dbmonedas
+        name: storage-bdmonedas
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
